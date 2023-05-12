@@ -1,0 +1,31 @@
+{
+  "name": "gtd-app-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bootstrap": "npm i && clasp login && clasp create --type standalone --title gtd-app-scripts --rootDir src",
+    "deploy": "clasp push",
+    "watch": "clasp push --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamro/gtd-app-scripts.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamro/gtd-app-scripts/issues"
+  },
+  "homepage": "https://github.com/jamro/gtd-app-scripts#readme",
+  "devDependencies": {
+    "@google/clasp": "^2.4.2",
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
