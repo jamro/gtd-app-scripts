@@ -9,3 +9,7 @@ function doGet(e) {
 function inbox_getItems() {
   return backendApp.inbox.getItems()
 }
+
+function inbox_completeTask(id) {
+  backendApp.inbox.completeTask(id)
+}
