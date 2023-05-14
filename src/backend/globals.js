@@ -13,3 +13,7 @@ function inbox_getItems() {
 function inbox_completeTask(id) {
   backendApp.inbox.completeTask(id)
 }
+
+function inbox_trashTask(id) {
+  backendApp.inbox.trashTask(id)
+}

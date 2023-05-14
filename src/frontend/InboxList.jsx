@@ -15,17 +15,27 @@ function InboxList() {
       .inbox_getItems()
   }, []);
 
+  const disableItem = (id) => setItems((prevItems) => prevItems.map(item => ({
+    ...item,
+    locked: item.id === id ? true : item.locked
+  })))
+
+  const removeItem = (id) => setItems((prevItems) => prevItems.filter(i => i.id !== id))
+
   const completeTask = (id) => {
-    setItems((prevItems) => prevItems.map(item => ({
-      ...item,
-      locked: item.id === id ? true : item.locked
-    })))
+    disableItem(id)
     google.script.run
-      .withSuccessHandler(() => {
-        setItems((prevItems) => prevItems.filter(i => i.id !== id))
-      })
+      .withSuccessHandler(() => removeItem(id))
       .withFailureHandler(setError)
       .inbox_completeTask(id)
+  }
+
+  const trashTask = (id) => {
+    disableItem(id)
+    google.script.run
+      .withSuccessHandler(() => removeItem(id))
+      .withFailureHandler(setError)
+      .inbox_trashTask(id)
   }
 
   let content
@@ -42,6 +52,7 @@ function InboxList() {
         title={i.title} 
         locked={i.locked}
         onRequestComplete={() => completeTask(i.id)}
+        onRequestTrash={() => trashTask(i.id)}
       />
     ))
     content = <table className="table"><tbody>{itemElements}</tbody></table>

@@ -9,4 +9,9 @@ export default class Inbox {
     const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
     Tasks.Tasks.patch({status: 'completed'}, inboxId, taskId)
   }
+
+  trashTask(taskId) {
+    const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
+    Tasks.Tasks.remove(inboxId, taskId)
+  }
 }
