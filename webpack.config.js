@@ -5,10 +5,13 @@ const WatchExternalFilesPlugin = require('webpack-watch-files-plugin').default
 const { exec } = require('node:child_process');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    backend: './src/backend/index.js',
+    frontend: './src/frontend/index.js'
+  },
   output: {
-    filename: 'app.bundle.js',
-    library: 'app',
+    filename: '[name].bundle.js',
+    library: '[name]App',
     libraryTarget: 'var',
     path: path.resolve(__dirname, 'dist'),
   },
@@ -19,10 +22,18 @@ module.exports = {
   plugins: [
     new AppendFilesPlugin({
       files: [
-        'dist/app.bundle.js',
-        'src/globals.js'
+        'dist/backend.bundle.js',
+        'src/backend/globals.js'
       ],
       filename: "app.js"
+    }),
+    new AppendFilesPlugin({
+      files: [
+        'src/frontend/index_body.html',
+        'dist/frontend.bundle.js',
+        'src/frontend/index_footer.html'
+      ],
+      filename: "index.html"
     }),
     new CopyPlugin({
       patterns: [
@@ -31,8 +42,8 @@ module.exports = {
     }),
     new WatchExternalFilesPlugin({
       files: [
-        './src/appsscript.js',
-        './src/globals.js',
+        './src/**/*.js',
+        './src/**/*.html',
       ]
     }),
     {
