@@ -55,7 +55,7 @@ function InboxList() {
   } else if(items === null) {
     content = <div>Loading...</div>
   } else if(items.length === 0) {
-    content = <div>Inbox is empty! Good job!</div>
+    content = <div className="text-success" style={{marginLeft: '0.5em'}}><strong>Inbox is empty! Good job!</strong> <span class="material-icons" style={{verticalAlign: 'top'}}>celebration</span></div>
   } else {
     console.log(items)
     const itemElements = items.map((i) => (
@@ -79,8 +79,7 @@ function InboxList() {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1>Your inbox</h1>
-          <h5>Stuff to review</h5>
+          <h1><span class="material-icons" style={{verticalAlign: 'middle', fontSize: '1.5em'}}>inbox</span> Your inbox</h1>
           {content}
         </div>
       </div>

@@ -29,22 +29,16 @@ function TaskItem (props) {
   const output = [<tr key="main-row">
       <td style={{verticalAlign: 'middle'}}>{title}</td>
       <td style={{textAlign: 'right'}}>
-        <button type="button" className="btn btn-success" onClick={() => onRequestComplete()} disabled={locked}>
-          Complete
-          <br />
-          <small>(takes &lt; 2min)</small>
+        <button type="button" className="btn btn-success" onClick={() => onRequestComplete()} disabled={locked} title="takes less than 2min">
+          <span className="material-icons" style={{verticalAlign: 'top'}}>check_circle</span> Complete
         </button>
         &nbsp;
-        <button type="button" className="btn btn-danger" onClick={() => onRequestTrash()} disabled={locked}>
-          Trash
-          <br />
-          <small>(no action)</small>
-        </button>
+        <button type="button" className="btn btn-danger" onClick={() => onRequestTrash()} disabled={locked} title="nothing to do">
+          <span className="material-icons" style={{verticalAlign: 'top'}}>delete</span> Trash
+        </button> 
         &nbsp;
-        <button type="button" className="btn btn-primary" onClick={() => toggle('defer')} disabled={locked}>
-          Defer It
-          <br />
-          <small>(do it ASAP)</small>
+        <button type="button" className="btn btn-primary" onClick={() => toggle('defer')} disabled={locked} title="to do as soon as I can">
+          <span className="material-icons" style={{verticalAlign: 'top'}}>pending_actions</span> Defer it
         </button>
       </td>
     </tr>]
