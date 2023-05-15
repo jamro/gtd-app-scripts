@@ -38,6 +38,14 @@ function InboxList() {
       .inbox_trashTask(id)
   }
 
+  const deferTask = (id, title, notes) => {
+    disableItem(id)
+    google.script.run
+      .withSuccessHandler(() => removeItem(id))
+      .withFailureHandler(setError)
+      .inbox_deferTask(id, title, notes)
+  }
+
   let content
   if(error) {
     content = <div className="text-danger"><strong>{String(error)}</strong></div>
@@ -49,10 +57,13 @@ function InboxList() {
     const itemElements = items.map((i) => (
       <TaskItem 
         key={i.id} 
+        id={i.id} 
         title={i.title} 
+        notes={i.notes} 
         locked={i.locked}
         onRequestComplete={() => completeTask(i.id)}
         onRequestTrash={() => trashTask(i.id)}
+        onRequestDefer={(title, notes) => deferTask(i.id, title, notes)}
       />
     ))
     content = <table className="table"><tbody>{itemElements}</tbody></table>

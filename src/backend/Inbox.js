@@ -14,4 +14,13 @@ export default class Inbox {
     const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
     Tasks.Tasks.remove(inboxId, taskId)
   }
+
+  deferTask(taskId, title, notes) {
+    const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
+    const nextActionsId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_NEXT_ACTIONS')
+    Tasks.Tasks.insert({title, notes}, nextActionsId)
+    Tasks.Tasks.remove(inboxId, taskId)
+
+
+  }
 }
