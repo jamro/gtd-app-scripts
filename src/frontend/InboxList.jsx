@@ -38,13 +38,16 @@ function InboxList() {
       .inbox_trashTask(id)
   }
 
-  const deferTask = (id, title, notes) => {
+  const deferTask = (id, title, notes, due) => {
+    console.log({id, title, notes, due})
     disableItem(id)
     google.script.run
       .withSuccessHandler(() => removeItem(id))
       .withFailureHandler(setError)
-      .inbox_deferTask(id, title, notes)
+      .inbox_deferTask(id, title, notes, due)
   }
+
+  console.log(items)
 
   let content
   if(error) {
@@ -54,16 +57,18 @@ function InboxList() {
   } else if(items.length === 0) {
     content = <div>Inbox is empty! Good job!</div>
   } else {
+    console.log(items)
     const itemElements = items.map((i) => (
       <TaskItem 
         key={i.id} 
         id={i.id} 
         title={i.title} 
+        due={(i.due)} 
         notes={i.notes} 
         locked={i.locked}
         onRequestComplete={() => completeTask(i.id)}
         onRequestTrash={() => trashTask(i.id)}
-        onRequestDefer={(title, notes) => deferTask(i.id, title, notes)}
+        onRequestDefer={(title, notes, due) => deferTask(i.id, title, notes, due)}
       />
     ))
     content = <table className="table"><tbody>{itemElements}</tbody></table>

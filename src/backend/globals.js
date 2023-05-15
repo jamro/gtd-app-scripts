@@ -18,6 +18,6 @@ function inbox_trashTask(id) {
   backendApp.inbox.trashTask(id)
 }
 
-function inbox_deferTask(id, title, notes) {
-  backendApp.inbox.deferTask(id, title, notes)
+function inbox_deferTask(id, title, notes, due) {
+  backendApp.inbox.deferTask(id, title, notes, due)
 }

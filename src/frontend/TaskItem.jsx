@@ -6,6 +6,7 @@ function TaskItem (props) {
   const {
     title,
     notes,
+    due,
     onRequestComplete,
     onRequestTrash,
     onRequestDefer,
@@ -51,7 +52,12 @@ function TaskItem (props) {
     if(!locked && state === 'defer') {
       output.push(<tr key="defer-row">
         <td colSpan={colCount}>
-          <DeferForm title={title} notes={notes} onSubmit={(title, notes) => onRequestDefer(title, notes)}/>
+          <DeferForm 
+            title={title} 
+            notes={notes} 
+            due={due}
+            onSubmit={(title, notes, due) => onRequestDefer(title, notes, due)}
+          />
         </td>
       </tr>)
     }
@@ -62,6 +68,7 @@ function TaskItem (props) {
 TaskItem.propTypes = {
   title: PropTypes.string,
   notes: PropTypes.string,
+  due: PropTypes.string,
   locked: PropTypes.bool,
   onRequestComplete: PropTypes.func,
   onRequestTrash: PropTypes.func,
@@ -71,6 +78,7 @@ TaskItem.propTypes = {
 TaskItem.defaultProps = {
   title: "Unknown Task",
   notes: "",
+  due: "",
   locked: false,
   onRequestComplete: () => {},
   onRequestTrash: () => {},
