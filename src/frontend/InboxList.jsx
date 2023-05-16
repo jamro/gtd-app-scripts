@@ -4,6 +4,7 @@ import TaskItem from "./TaskItem.jsx";
 function InboxList() {
 
   const [items, setItems] = React.useState(null);
+  const [creatingTask, setCreatingTask] = React.useState(false);
   const [references, setReferences] = React.useState([]);
   const [error, setError] = React.useState(null);
 
@@ -27,6 +28,7 @@ function InboxList() {
   })))
 
   const removeItem = (id) => setItems((prevItems) => prevItems.filter(i => i.id !== id))
+  const addItem = (item) => setItems((prevItems) => [...prevItems, item])
 
   const completeTask = (id) => {
     disableItem(id)
@@ -61,6 +63,16 @@ function InboxList() {
       .inbox_storeReference(id, title, notes, docId)
   }
   
+  const createTask = (title) => {
+    setCreatingTask(true)
+    google.script.run
+      .withSuccessHandler((data) => {
+        addItem(data)
+        setCreatingTask(false)
+      })
+      .withFailureHandler(setError)
+      .inbox_createTask(title)
+  }
 
   let content
   if(error) {
@@ -90,7 +102,7 @@ function InboxList() {
   }
 
   return <div>
-    <Navbar />
+    <Navbar onSubmit={(title) => createTask(title)} isProcessing={creatingTask} />
     <div className="container">
       <div className="row">
         <div className="col">

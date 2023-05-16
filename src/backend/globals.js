@@ -30,3 +30,7 @@ function inbox_storeReference(taskId, title, notes, docId) {
   backendApp.reference.appendToDocument(docId, title, notes)
   backendApp.inbox.trashTask(taskId)
 }
+
+function inbox_createTask(title) {
+  return backendApp.inbox.createTask(title)
+}

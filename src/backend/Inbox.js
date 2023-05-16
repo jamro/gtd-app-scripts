@@ -21,4 +21,9 @@ export default class Inbox {
     Tasks.Tasks.insert({title, notes, due}, nextActionsId)
     Tasks.Tasks.remove(inboxId, taskId)
   }
+
+  createTask(title) {
+    const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
+    return Tasks.Tasks.insert({title}, inboxId)
+  }
 }
