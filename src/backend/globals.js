@@ -28,5 +28,5 @@ function inbox_getReferenceDocuments() {
 
 function inbox_storeReference(taskId, title, notes, docId) {
   backendApp.reference.appendToDocument(docId, title, notes)
-  //backendApp.inbox.trashTask(taskId)
+  backendApp.inbox.trashTask(taskId)
 }
