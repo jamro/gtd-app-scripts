@@ -21,3 +21,12 @@ function inbox_trashTask(id) {
 function inbox_deferTask(id, title, notes, due) {
   backendApp.inbox.deferTask(id, title, notes, due)
 }
+
+function inbox_getReferenceDocuments() {
+  return backendApp.reference.getDocuments()
+}
+
+function inbox_storeReference(taskId, title, notes, docId) {
+  backendApp.reference.appendToDocument(docId, title, notes)
+  //backendApp.inbox.trashTask(taskId)
+}

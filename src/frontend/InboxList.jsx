@@ -4,6 +4,7 @@ import TaskItem from "./TaskItem.jsx";
 function InboxList() {
 
   const [items, setItems] = React.useState(null);
+  const [references, setReferences] = React.useState([]);
   const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
@@ -13,6 +14,11 @@ function InboxList() {
       .withSuccessHandler(setItems)
       .withFailureHandler(setError)
       .inbox_getItems()
+
+    google.script.run
+      .withSuccessHandler(setReferences)
+      .withFailureHandler(setError)
+      .inbox_getReferenceDocuments()
   }, []);
 
   const disableItem = (id) => setItems((prevItems) => prevItems.map(item => ({
@@ -39,7 +45,6 @@ function InboxList() {
   }
 
   const deferTask = (id, title, notes, due) => {
-    console.log({id, title, notes, due})
     disableItem(id)
     google.script.run
       .withSuccessHandler(() => removeItem(id))
@@ -47,7 +52,15 @@ function InboxList() {
       .inbox_deferTask(id, title, notes, due)
   }
 
-  console.log(items)
+  const storeReference = (id, title, notes, docId) => {
+    console.log({id, title, notes, docId})
+    disableItem(id)
+    google.script.run
+      .withSuccessHandler(() => removeItem(id))
+      .withFailureHandler(setError)
+      .inbox_storeReference(id, title, notes, docId)
+  }
+  
 
   let content
   if(error) {
@@ -55,7 +68,7 @@ function InboxList() {
   } else if(items === null) {
     content = <div>Loading...</div>
   } else if(items.length === 0) {
-    content = <div className="text-success" style={{marginLeft: '0.5em'}}><strong>Inbox is empty! Good job!</strong> <span class="material-icons" style={{verticalAlign: 'top'}}>celebration</span></div>
+    content = <div className="text-success" style={{marginLeft: '0.5em'}}><strong>Inbox is empty! Good job!</strong> <span className="material-icons" style={{verticalAlign: 'top'}}>celebration</span></div>
   } else {
     console.log(items)
     const itemElements = items.map((i) => (
@@ -66,9 +79,11 @@ function InboxList() {
         due={(i.due)} 
         notes={i.notes} 
         locked={i.locked}
+        references={references}
         onRequestComplete={() => completeTask(i.id)}
         onRequestTrash={() => trashTask(i.id)}
         onRequestDefer={(title, notes, due) => deferTask(i.id, title, notes, due)}
+        onRequestReference={(title, notes, docId) => storeReference(i.id, title, notes, docId)}
       />
     ))
     content = <table className="table"><tbody>{itemElements}</tbody></table>
@@ -79,7 +94,7 @@ function InboxList() {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1><span class="material-icons" style={{verticalAlign: 'middle', fontSize: '1.5em'}}>inbox</span> Your inbox</h1>
+          <h1><span className="material-icons" style={{verticalAlign: 'middle', fontSize: '1.5em'}}>inbox</span> Your inbox</h1>
           {content}
         </div>
       </div>

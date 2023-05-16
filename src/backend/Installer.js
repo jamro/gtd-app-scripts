@@ -5,7 +5,22 @@ export default class Installer {
     this.createTaskList("Inbox")
     this.createTaskList("Next Actions")
     const gtdFolder = this.createFolder(DriveApp.getRootFolder(), 'GTD')
-    this.createFolder(gtdFolder, 'Reference')
+    const refFolder = this.createFolder(gtdFolder, 'Reference')
+
+    const children = refFolder.getFiles()
+    let hasDoc = false
+    while(children.hasNext()) {
+      const file = children.next()
+      if(file.getName() === 'My References') {
+        hasDoc = true
+        break;
+      }
+    }
+    if(!hasDoc) {
+      const doc = DocumentApp.create("My References")
+      const file = DriveApp.getFileById(doc.getId())
+      file.moveTo(refFolder)
+    }
   
     return PropertiesService.getScriptProperties().getProperties()
   }
@@ -32,17 +47,24 @@ export default class Installer {
   
   createTaskList(name) {
     const fullName = 'GTD / ' + name
-    let taskList = Tasks.Tasklists.list().items.find(l => l.title === fullName)
+    console.log("Reading existing lists")
+    const allLists = Tasks.Tasklists.list().items
+    console.log('Lists found: ' + allLists.length)
+    let taskList = allLists.find(l => l.title === fullName)
     if(!taskList) {
       console.log('Creating task list: ' + fullName)
       taskList = Tasks.newTaskList()
+      console.log('Setting list name')
       taskList.title = fullName
-      Tasks.Tasklists.insert(taskList)
+      console.log('Inserting the list')
+      taskList = Tasks.Tasklists.insert(taskList)
     } else {
       console.log('Task list found: ' + fullName)
     }
-  
-    PropertiesService.getScriptProperties().setProperty(`TASK_LIST_${name.toUpperCase().replace(' ', '_')}`, taskList.id)
+    const propId = `TASK_LIST_${name.toUpperCase().replace(/ /g, '_')}`
+    console.log('Storing list ID in property: ' + propId + " = " + taskList.id)
+    PropertiesService.getScriptProperties().setProperty(propId, String(taskList.id))
+    console.log('Task list created: ' + fullName + ", " + taskList.id)
     return taskList.id
   }
 
