@@ -19,7 +19,7 @@ function inbox_trashTask(id) {
 }
 
 function inbox_deferTask(id, title, notes, due) {
-  backendApp.inbox.deferTask(id, title, notes, due)
+  return backendApp.inbox.deferTask(id, title, notes, due)
 }
 
 function inbox_getReferenceDocuments() {
@@ -33,4 +33,12 @@ function inbox_storeReference(taskId, title, notes, docId) {
 
 function inbox_createTask(title) {
   return backendApp.inbox.createTask(title)
+}
+
+function actions_getItems() {
+  return backendApp.nextActions.getItems()
+}
+
+function actions_completeTask(id) {
+  backendApp.nextActions.completeTask(id)
 }

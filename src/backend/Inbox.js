@@ -18,8 +18,9 @@ export default class Inbox {
   deferTask(taskId, title, notes, due=undefined) {
     const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
     const nextActionsId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_NEXT_ACTIONS')
-    Tasks.Tasks.insert({title, notes, due}, nextActionsId)
+    const newTask = Tasks.Tasks.insert({title, notes, due}, nextActionsId)
     Tasks.Tasks.remove(inboxId, taskId)
+    return newTask
   }
 
   createTask(title) {
