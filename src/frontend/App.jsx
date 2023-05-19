@@ -74,7 +74,9 @@ function App() {
     google.script.run
       .withSuccessHandler((task) => {
         removeInboxItem(id)
-        addActionItem(task)
+        if(task) {
+          addActionItem(task)
+        }
       })
       .withFailureHandler(setError)
       .inbox_deferTask(id, title, notes, due)

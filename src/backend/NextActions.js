@@ -7,7 +7,7 @@ export default class NextActions {
     const now = new Date().getTime()
     return items
       .filter(i => !i.due || new Date(i.due).getTime() <= now)
-      .sort()
+      .sort((a, b) => String(a.position).localeCompare(String(b.position)))
   }
 
   completeTask(taskId) {

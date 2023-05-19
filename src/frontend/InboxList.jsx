@@ -1,4 +1,4 @@
-import TaskItem from "./TaskItem.jsx";
+import InboxItem from "./InboxItem.jsx";
 import PropTypes from 'prop-types';
 
 function InboxList(props) {
@@ -19,9 +19,8 @@ function InboxList(props) {
     content = <div className="text-success" style={{marginLeft: '0.5em'}}><strong>Inbox is empty! Good job!</strong> <span className="material-icons" style={{verticalAlign: 'top'}}>celebration</span></div>
   } else {
     const itemElements = items.map((i) => (
-      <TaskItem 
+      <InboxItem 
         key={i.id} 
-        id={i.id} 
         title={i.title} 
         due={(i.due)} 
         notes={i.notes} 

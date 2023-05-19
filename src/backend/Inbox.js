@@ -20,7 +20,12 @@ export default class Inbox {
     const nextActionsId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_NEXT_ACTIONS')
     const newTask = Tasks.Tasks.insert({title, notes, due}, nextActionsId)
     Tasks.Tasks.remove(inboxId, taskId)
-    return newTask
+
+    const now = new Date().getTime()
+    if(!newTask.due || new Date(newTask.due).getTime() <= now) {
+      return newTask
+    }
+    return null
   }
 
   createTask(title) {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import DeferForm from './DeferForm.jsx';
 import ReferenceForm from './ReferenceForm.jsx';
 
-function TaskItem (props) {
+function InboxItem (props) {
 
   const {
     title,
@@ -78,7 +78,7 @@ function TaskItem (props) {
     return output
 }
 
-TaskItem.propTypes = {
+InboxItem.propTypes = {
   title: PropTypes.string,
   notes: PropTypes.string,
   due: PropTypes.string,
@@ -93,7 +93,7 @@ TaskItem.propTypes = {
   onRequestReference: PropTypes.func,
 }
 
-TaskItem.defaultProps = {
+InboxItem.defaultProps = {
   title: "Unknown Task",
   notes: "",
   due: "",
@@ -105,4 +105,4 @@ TaskItem.defaultProps = {
   onRequestReference: () => {},
 }
 
-export default TaskItem
+export default InboxItem
