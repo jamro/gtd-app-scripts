@@ -2,6 +2,8 @@
 
 It is a tool designed to assist in implementing the "Getting Things Done" (GTD) methodology. Leveraging the power of Google App Scripts, this project aims to provide a streamlined workflow for organizing and managing tasks, projects, and goals according to the GTD principles.
 
+![App Preview](doc/preview.png)
+
 ## Getting Things Done (GTD):
 Getting Things Done (GTD), is a productivity methodology developed by David Allen. It provides a systematic approach to organizing tasks and achieving greater efficiency and clarity in work and personal life. GTD emphasizes capturing all tasks and ideas, clarifying their purpose, organizing them into actionable lists, and regularly reviewing and engaging with the lists.
 
