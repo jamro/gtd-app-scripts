@@ -22,17 +22,17 @@ function ReferenceForm(props) {
     </div>
     <div className="card-body">
       <div className="mb-3">
-        <label forhtml={`docInput_${id}`} className="form-label">Document</label>
+        <label forhtml={`titleInput_${id}`} className="form-label"><span className="material-icons" style={{verticalAlign: 'top'}}>label</span> Task Title</label>
+        <input type="text" className="form-control" id={`titleInput_${id}`} value={newTitle} onChange={(e) => setNewTitle(e.target.value)}/>
+      </div>
+      <div className="mb-3">
+        <label forhtml={`docInput_${id}`} className="form-label"><span className="material-icons" style={{verticalAlign: 'top'}}>inventory_2</span> Document</label>
         <select id={`docInput_${id}`} className="form-select form-control" value={docId} onChange={(e) => setDocId(e.target.value)}>
           {options}
         </select>
       </div>
       <div className="mb-3">
-        <label forhtml={`titleInput_${id}`} className="form-label">Task Title</label>
-        <input type="text" className="form-control" id={`titleInput_${id}`} value={newTitle} onChange={(e) => setNewTitle(e.target.value)}/>
-      </div>
-      <div className="mb-3">
-        <label forhtml={`notesInput_${id}`} className="form-label">Notes / Description</label>
+        <label forhtml={`notesInput_${id}`} className="form-label"><span className="material-icons" style={{verticalAlign: 'top'}}>description</span> Notes / Description</label>
         <textarea type="text" className="form-control" id={`notesInput_${id}`} rows={5} onChange={(e) => setNewNotes(e.target.value)} value={newNotes} />
       </div>
       <div className="mb-3" style={{textAlign: 'right'}}>

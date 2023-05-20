@@ -38,7 +38,6 @@ function DatePicker(props) {
   }
 
   return <div className="input-group mb-3">
-      <span className="input-group-text"><strong>Due date:</strong></span>
       <input id={`${id}`} type="text" className="form-control text-center" placeholder="YYYY" maxLength={4} value={year} onChange={(e) => updateField(e, 'year')} />
       <span className="input-group-text">-</span>
       <input id={`${id}_m`} type="text" className="form-control text-center" placeholder="MM" maxLength={2} value={month} onChange={(e) => updateField(e, 'month')} />

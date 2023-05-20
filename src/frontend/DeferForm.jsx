@@ -21,15 +21,15 @@ function DeferForm(props) {
     </div>
     <div className="card-body">
       <div className="mb-3">
-        <label forhtml={`titleInput_${id}`} className="form-label">Task Title</label>
+        <label forhtml={`titleInput_${id}`} className="form-label"><span className="material-icons" style={{verticalAlign: 'top'}}>label</span> Task Title</label>
         <input type="text" className="form-control" id={`titleInput_${id}`} value={newTitle} onChange={(e) => setNewTitle(e.target.value)}/>
       </div>
       <div className="mb-3">
-        <label forhtml={`dueInput_${id}`} className="form-label">Due Date</label>
+        <label forhtml={`dueInput_${id}`} className="form-label"><span className="material-icons" style={{verticalAlign: 'top'}}>event</span> Due Date</label>
         <DatePicker id={`dueInput_${id}`} value={newDue} onChange={(v) => setNewDue(v)}/>
       </div>
       <div className="mb-3">
-        <label forhtml={`notesInput_${id}`} className="form-label">Notes / Description</label>
+        <label forhtml={`notesInput_${id}`} className="form-label"><span className="material-icons" style={{verticalAlign: 'top'}}>description</span> Notes / Description</label>
         <textarea type="text" className="form-control" id={`notesInput_${id}`} rows={5} onChange={(e) => setNewNotes(e.target.value)} value={newNotes} />
       </div>
       <div className="mb-3" style={{textAlign: 'right'}}>
