@@ -5,7 +5,7 @@ It is a tool designed to assist in implementing the "Getting Things Done" (GTD) 
 ## Getting Things Done (GTD):
 Getting Things Done (GTD), is a productivity methodology developed by David Allen. It provides a systematic approach to organizing tasks and achieving greater efficiency and clarity in work and personal life. GTD emphasizes capturing all tasks and ideas, clarifying their purpose, organizing them into actionable lists, and regularly reviewing and engaging with the lists.
 
-![GTD Flow](docs/gtd_process.png)
+![GTD Flow](doc/gtd_process.png)
 
 Read more [here](https://en.wikipedia.org/wiki/Getting_Things_Done).
 
