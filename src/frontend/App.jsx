@@ -129,6 +129,15 @@ function App() {
       items={actionItems}
       onCompleteTask={completeActionTask}
     />
+    <div className="container mt-4">
+      <div className="row">
+        <div className="col text-center">
+          <small className="text-muted">
+            Hosted on <a href="https://github.com/jamro/gtd-app-scripts" target="_blank">GitHub</a>. This project is licensed under the terms of the MIT license.
+          </small>
+        </div>
+      </div>
+    </div>
   </div>
 }
 
