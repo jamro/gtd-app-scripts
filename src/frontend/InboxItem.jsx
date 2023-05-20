@@ -57,7 +57,7 @@ function InboxItem (props) {
             title={title} 
             notes={notes} 
             due={due}
-            onSubmit={(title, notes, due) => onRequestDefer(title, notes, due)}
+            onSubmit={(title, notes, due, project) => onRequestDefer(title, notes, due, project)}
           />
         </td>
       </tr>)

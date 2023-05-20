@@ -18,8 +18,8 @@ function inbox_trashTask(id) {
   backendApp.inbox.trashTask(id)
 }
 
-function inbox_deferTask(id, title, notes, due) {
-  return backendApp.inbox.deferTask(id, title, notes, due)
+function inbox_deferTask(id, title, notes, due, project) {
+  return backendApp.inbox.deferTask(id, title, notes, due, project)
 }
 
 function inbox_getReferenceDocuments() {
@@ -40,5 +40,5 @@ function actions_getItems() {
 }
 
 function actions_completeTask(id) {
-  backendApp.nextActions.completeTask(id)
+  return backendApp.nextActions.completeTask(id)
 }

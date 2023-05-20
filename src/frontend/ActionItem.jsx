@@ -36,7 +36,6 @@ function ActionItem (props) {
           <button type="button" className="btn btn-light text-success" onClick={() => onRequestComplete()} disabled={locked}>
             <span className="material-icons" style={{verticalAlign: 'top'}} >{locked ? 'published_with_changes' : 'check_circle_outline'}</span>
           </button> {title} {getDueBadge(due)}
-          <button type="button" className="btn btn-light text-success" onClick={() => onRequestComplete()} disabled={locked}></button>
           {moreButton}
         </div>
         {notesElement}

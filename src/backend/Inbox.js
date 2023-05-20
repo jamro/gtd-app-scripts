@@ -15,10 +15,15 @@ export default class Inbox {
     Tasks.Tasks.remove(inboxId, taskId)
   }
 
-  deferTask(taskId, title, notes, due=undefined) {
+  deferTask(taskId, title, notes, due=undefined, project=undefined) {
     const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
     const nextActionsId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_NEXT_ACTIONS')
-    const newTask = Tasks.Tasks.insert({title, notes, due}, nextActionsId)
+    let newNotes = notes.replace(/\[PROJECT:.*]\n/g, '')
+
+    if(project) {
+      newNotes = `[PROJECT:${project}]\n` + newNotes
+    }
+    const newTask = Tasks.Tasks.insert({title, notes: newNotes, due}, nextActionsId)
     Tasks.Tasks.remove(inboxId, taskId)
 
     const now = new Date().getTime()

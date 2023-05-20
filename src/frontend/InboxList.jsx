@@ -28,7 +28,7 @@ function InboxList(props) {
         references={references}
         onRequestComplete={() => onCompleteTask(i.id)}
         onRequestTrash={() => onTrashTask(i.id)}
-        onRequestDefer={(title, notes, due) => onDeferTask(i.id, title, notes, due)}
+        onRequestDefer={(title, notes, due, project) => onDeferTask(i.id, title, notes, due, project)}
         onRequestReference={(title, notes, docId) => onReferTask(i.id, title, notes, docId)}
       />
     ))

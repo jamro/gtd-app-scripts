@@ -56,7 +56,12 @@ function App() {
   const completeActionTask = (id) => {
     disableActionItem(id)
     google.script.run
-      .withSuccessHandler(() => removeActionItem(id))
+      .withSuccessHandler((followUp) => {
+        removeActionItem(id)
+        if(followUp) {
+          addInboxItem(followUp)
+        }
+      })
       .withFailureHandler(setError)
       .actions_completeTask(id)
   }
@@ -69,8 +74,9 @@ function App() {
       .inbox_trashTask(id)
   }
 
-  const deferInboxTask = (id, title, notes, due) => {
+  const deferInboxTask = (id, title, notes, due, project) => {
     disableInboxItem(id)
+    console.log({id, title, notes, due, project})
     google.script.run
       .withSuccessHandler((task) => {
         removeInboxItem(id)
@@ -79,7 +85,7 @@ function App() {
         }
       })
       .withFailureHandler(setError)
-      .inbox_deferTask(id, title, notes, due)
+      .inbox_deferTask(id, title, notes, due, project)
   }
 
   const storeReference = (id, title, notes, docId) => {
