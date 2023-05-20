@@ -18,6 +18,10 @@ function inbox_trashTask(id) {
   backendApp.inbox.trashTask(id)
 }
 
+function inbox_snoozeTask(id, title, notes, duration) {
+  backendApp.inbox.snoozeTask(id, title, notes, duration)
+}
+
 function inbox_deferTask(id, title, notes, due, project) {
   return backendApp.inbox.deferTask(id, title, notes, due, project)
 }

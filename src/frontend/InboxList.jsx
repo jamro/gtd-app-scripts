@@ -9,6 +9,7 @@ function InboxList(props) {
     onTrashTask,
     onDeferTask,
     onReferTask,
+    onSnooze,
     references
   } = props
 
@@ -30,6 +31,7 @@ function InboxList(props) {
         onRequestTrash={() => onTrashTask(i.id)}
         onRequestDefer={(title, notes, due, project) => onDeferTask(i.id, title, notes, due, project)}
         onRequestReference={(title, notes, docId) => onReferTask(i.id, title, notes, docId)}
+        onRequestSnooze={(title, notes, duration) => onSnooze(i.id, title, notes, duration)}
       />
     ))
     content = <table className="table"><tbody>{itemElements}</tbody></table>
@@ -62,6 +64,7 @@ InboxList.propTypes = {
   onTrashTask: PropTypes.func,
   onDeferTask: PropTypes.func,
   onReferTask: PropTypes.func,
+  onSnooze: PropTypes.func,
 }
 
 InboxList.defaultProps = {
@@ -71,6 +74,7 @@ InboxList.defaultProps = {
   onTrashTask: () => {},
   onDeferTask: () => {},
   onReferTask: () => {},
+  onSnooze: () => {},
 }
 
 export default InboxList

@@ -2,7 +2,11 @@ export default class Inbox {
 
   getItems() {
     const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
-    return Tasks.Tasks.list(inboxId).items.filter(t => t.status === "needsAction")
+    const now = new Date().getTime()
+    return Tasks.Tasks.list(inboxId).items
+      .filter(t => t.status === "needsAction")
+      .filter(i => !i.due || new Date(i.due).getTime() <= now)
+
   }
 
   completeTask(taskId) {
@@ -13,6 +17,16 @@ export default class Inbox {
   trashTask(taskId) {
     const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
     Tasks.Tasks.remove(inboxId, taskId)
+  }
+
+  snoozeTask(taskId, title, notes, duration) {
+    const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
+
+    const now = new Date().getTime()
+    const today = Math.floor(now/(24*60*60*1000))*24*60*60*1000
+    const due = new Date(today + duration).toISOString()
+
+    Tasks.Tasks.patch({due, title, notes}, inboxId, taskId)
   }
 
   deferTask(taskId, title, notes, due=undefined, project=undefined) {

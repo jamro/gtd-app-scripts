@@ -74,6 +74,14 @@ function App() {
       .inbox_trashTask(id)
   }
 
+  const snoozeInboxTask = (id, title, notes, duration) => {
+    disableInboxItem(id)
+    google.script.run
+      .withSuccessHandler(() => removeInboxItem(id))
+      .withFailureHandler(setError)
+      .inbox_snoozeTask(id, title, notes, duration)
+  }
+
   const deferInboxTask = (id, title, notes, due, project) => {
     disableInboxItem(id)
     console.log({id, title, notes, due, project})
@@ -124,6 +132,7 @@ function App() {
       onTrashTask={trashInboxTask}
       onDeferTask={deferInboxTask}
       onReferTask={storeReference}
+      onSnooze={snoozeInboxTask}
     />
     <ActionList 
       items={actionItems}
