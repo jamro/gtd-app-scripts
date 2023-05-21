@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Tooltip } from './Tooltip.jsx';
 
 function ActionItem (props) {
 
@@ -45,9 +46,19 @@ function ActionItem (props) {
   
   const getDueBadge = (dateString) => {
     if(!dateString) return null
-    return <span className="badge rounded-pill text-bg-primary" style={{verticalAlign: 'text-top'}}>
-        due: {new Date(dateString).toLocaleDateString()}
-      </span>
+    return <Tooltip text={new Date(dateString).toLocaleDateString()}>
+        <span className="badge rounded-pill text-bg-danger" style={{verticalAlign: 'text-top'}}>
+          <span className="material-icons" style={{verticalAlign: 'top', fontSize: '1em'}}>event</span>
+        </span>
+      </Tooltip>
+  } 
+
+  const getProjectBadge = (projectMatch) => {
+    if(!projectMatch) return null
+    return <Tooltip text={projectMatch[1]}>
+      <span className="badge rounded-pill text-bg-success" style={{verticalAlign: 'text-top'}}>
+         <span className="material-icons" style={{verticalAlign: 'top', fontSize: '1em'}}>checklist_rtl</span>
+      </span></Tooltip>
   } 
 
   let moreButton = null
@@ -68,7 +79,7 @@ function ActionItem (props) {
         <div>
           <button type="button" className="btn btn-light text-success" onClick={() => onRequestComplete()} disabled={locked}>
             <span className="material-icons" style={{verticalAlign: 'top'}} >{locked ? 'published_with_changes' : 'check_circle_outline'}</span>
-          </button> {title} {getDueBadge(due)}
+          </button> {title} {getDueBadge(due)} {getProjectBadge(notes.match(/\[PROJECT:(.*)\]/))}
           {moreButton}
         </div>
         {notesElement}
