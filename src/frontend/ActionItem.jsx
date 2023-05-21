@@ -7,11 +7,42 @@ function ActionItem (props) {
     notes,
     due,
     onRequestComplete,
+    onRequestNotesUpdate,
     locked
   } = props
 
   const [expanded, setExpanded] = React.useState(false);
+  const [newNotes, setNewNotes] = React.useState(notes);
+  const [changed, setChanged] = React.useState(false);
 
+  const timeout = React.useRef(null)
+
+  React.useEffect(() => {
+    return () => {
+      //hide
+      if(timeout.current) {
+        clearTimeout(timeout.current)
+        setChanged(false)
+        timeout.current = null
+        onRequestNotesUpdate(newNotes)
+      }
+    }
+  }, [])
+
+  const onTextChanged = (e) => {
+    const text = e.target.value
+    setChanged(true)
+    setNewNotes(text)
+    if(timeout.current) {
+      clearTimeout(timeout.current)
+    }
+    timeout.current = setTimeout(() => {
+      onRequestNotesUpdate(text)
+      setChanged(false)
+    }, 700)
+  }
+
+  
   const getDueBadge = (dateString) => {
     if(!dateString) return null
     return <span className="badge rounded-pill text-bg-primary" style={{verticalAlign: 'text-top'}}>
@@ -27,7 +58,9 @@ function ActionItem (props) {
     </button>
   }
   if(expanded) {
-    notesElement = <pre className="small text-muted" style={{paddingLeft: '4em'}}>{notes}</pre>
+    notesElement = <div style={{paddingLeft: '3em', paddingTop: '0.5em'}}>
+        <textarea className="form-control text-muted font-monospace small" rows="5" style={{fontSize: '0.8em', borderColor: changed ? '#00f' : '#ccc'}} onChange={onTextChanged} value={newNotes}></textarea>
+      </div>
   }
 
   return <tr>
@@ -49,6 +82,7 @@ ActionItem.propTypes = {
   due: PropTypes.string,
   locked: PropTypes.bool,
   onRequestComplete: PropTypes.func,
+  onRequestNotesUpdate: PropTypes.func,
 }
 
 ActionItem.defaultProps = {
@@ -57,6 +91,7 @@ ActionItem.defaultProps = {
   due: "",
   locked: false,
   onRequestComplete: () => {},
+  onRequestNotesUpdate: () => {}
 }
 
 export default ActionItem

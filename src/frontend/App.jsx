@@ -116,6 +116,12 @@ function App() {
       .inbox_createTask(title)
   }
 
+  const updateActionTaskNotes = (id, notes) => {
+    google.script.run
+      .withFailureHandler(setError)
+      .actions_updateTaskNotes(id, notes)
+  }
+
   if(error) {
     return <div className="text-danger">{String(error)}</div>
   }
@@ -137,6 +143,7 @@ function App() {
     <ActionList 
       items={actionItems}
       onCompleteTask={completeActionTask}
+      onTaskNotesUpdate={updateActionTaskNotes}
     />
     <div className="container mt-4">
       <div className="row">

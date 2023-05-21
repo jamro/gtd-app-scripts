@@ -46,3 +46,7 @@ function actions_getItems() {
 function actions_completeTask(id) {
   return backendApp.nextActions.completeTask(id)
 }
+
+function actions_updateTaskNotes(id, notes) {
+  backendApp.nextActions.updateTaskNotes(id, notes)
+}

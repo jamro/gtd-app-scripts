@@ -26,4 +26,9 @@ export default class NextActions {
     }
     return null
   }
+
+  updateTaskNotes(taskId, notes) {
+    const nextActionsId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_NEXT_ACTIONS')
+    Tasks.Tasks.patch({notes}, nextActionsId, taskId)
+  }
 }

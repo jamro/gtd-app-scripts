@@ -5,7 +5,8 @@ function ActionList(props) {
 
   const {
     items,
-    onCompleteTask
+    onCompleteTask,
+    onTaskNotesUpdate
   } = props
 
   let content
@@ -21,6 +22,7 @@ function ActionList(props) {
       notes={i.notes}
       locked={i.locked}
       onRequestComplete={() => onCompleteTask(i.id)}
+      onRequestNotesUpdate={(text) => onTaskNotesUpdate(i.id, text)}
     />)
     content = <table className="table"><tbody>{itemElements}</tbody></table>
   }
@@ -43,13 +45,15 @@ ActionList.propTypes = {
     due: PropTypes.string,
     notes: PropTypes.string,
     locked: PropTypes.bool,
-    onCompleteTask: PropTypes.func
+    onCompleteTask: PropTypes.func,
+    onTaskNotesUpdate: PropTypes.func,
   })),
 }
 
 ActionList.defaultProps = {
   items: [],
-  onCompleteTask: () => {}
+  onCompleteTask: () => {},
+  onTaskNotesUpdate: () => {},
 } 
 
 export default ActionList
