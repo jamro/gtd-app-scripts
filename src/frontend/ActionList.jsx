@@ -27,7 +27,7 @@ function ActionList(props) {
     content = <table className="table"><tbody>{itemElements}</tbody></table>
   }
 
-  return <div className="container">
+  return <div className="container mb-5">
       <div className="row">
         <div className="col">
           <h1><span className="material-icons" style={{verticalAlign: 'middle', fontSize: '1.5em'}}>work_history</span> Next Actions</h1>

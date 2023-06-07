@@ -1,6 +1,7 @@
 import ActionList from "./ActionList.jsx";
 import InboxList from "./InboxList.jsx"
 import Navbar from "./Navbar.jsx";
+import ReferenceList from "./ReferenceList.jsx";
 
 function App() {
 
@@ -144,6 +145,9 @@ function App() {
       items={actionItems}
       onCompleteTask={completeActionTask}
       onTaskNotesUpdate={updateActionTaskNotes}
+    />
+    <ReferenceList 
+      references={references}
     />
     <div className="container mt-4">
       <div className="row">
