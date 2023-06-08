@@ -3,7 +3,7 @@ export default class Inbox {
   getItems() {
     const inboxId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_INBOX')
     const now = new Date().getTime()
-    return Tasks.Tasks.list(inboxId).items
+    return Tasks.Tasks.list(inboxId, {maxResults: 100}).items
       .filter(t => t.status === "needsAction")
       .filter(i => !i.due || new Date(i.due).getTime() <= now)
 

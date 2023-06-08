@@ -2,7 +2,7 @@ export default class NextActions {
 
   getItems() {
     const nextActionsId = PropertiesService.getScriptProperties().getProperty('TASK_LIST_NEXT_ACTIONS')
-    const items = Tasks.Tasks.list(nextActionsId).items.filter(t => t.status === "needsAction")
+    const items = Tasks.Tasks.list(nextActionsId, {maxResults: 100}).items.filter(t => t.status === "needsAction")
 
     const now = new Date().getTime()
     return items
